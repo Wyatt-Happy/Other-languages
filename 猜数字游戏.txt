@@ -1,0 +1,21 @@
+print('退出游戏“q”')
+import random
+x=int(input('请输入您的猜测范围'))
+z=int(input('请选择您的猜测次数'))
+a= random.randint(1,x)
+for i in range(z):
+    guess=input('请输入数字')
+    if guess.isdigit():
+        guess=int(guess)
+        if guess> a:
+            print('往小了猜,你还剩余"%d"' %(z-1-i))
+        elif guess == a:
+            print('恭喜中奖')
+            exit()
+        elif guess <a:
+            print('往大了猜,你还剩余"%d"' %(z-1-i))
+    elif guess=='q':
+            print("游戏结束")
+            break
+print('你要猜的数字是"%a"，没猜中吧' %a)
+exit()

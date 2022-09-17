@@ -1,0 +1,61 @@
+import time
+import os
+import tkinter
+import tkinter.messagebox
+
+window=tkinter.Tk()
+window.title('闹钟')
+window.geometry('400x200+400+300')
+
+#提取当前的时间，每秒刷新两次
+def getting():
+    var.set(time.strftime("%Y-%m-%d %H:%M:%S"))     #对当前时间进行格式化
+    window.after(500,getting)
+
+#在主界面显示当前的时间
+var=tkinter.StringVar()
+lb=tkinter.Label(window,textvariable=var,font=('Arial',10),width=20)
+lb.pack()
+
+getting()
+
+#标签文档
+window_text=tkinter.Label(window,text='请输入需要提醒的时间',font=('Arail',10))
+window_text.place(x=130,y=50)
+
+window_symbol=tkinter.Label(window,text=':',font=('Arail',15))
+window_symbol.place(x=190,y=80)
+
+#取出输入的小时数
+hour_var=tkinter.StringVar()
+window_hour=tkinter.Entry(window,textvariable=hour_var,width=5,show=None)
+window_hour.place(x=150,y=82)
+
+#取出输入的分钟数
+minute_var=tkinter.StringVar()
+window_minute=tkinter.Entry(window,textvariable=minute_var,width=5,show=None)
+window_minute.place(x=210,y=82)
+
+#主要判断函数，文首说的问题就在此函数中
+def estimate():
+    hour=hour_var.get()
+    minute=minute_var.get()
+    if hour == '':
+        tkinter.messagebox.showerror(title='赵畅',message='小时不允许为空')        #报错弹窗
+    elif minute == '':
+        tkinter.messagebox.showerror(title='赵畅',message='分钟数不允许为空')
+    else:
+        def estimate1():
+            tkinter.messagebox.showinfo(title='赵畅',message='已为您成功定时')     #通知弹窗
+            window.after(1000,estimate1)
+            if ((hour) == (time.strftime('%H'))) and ((minute) == (time.strftime("%M"))):   #这个判断是有点憨，见谅
+                os.system('卡农.mp3')     #我最喜欢的钢琴曲
+                window.destroy()        #实在是不知道怎么中断after，被逼无奈出此下策
+        estimate1()
+
+#给个按钮
+window_button=tkinter.Button(window,text='定时',width=9,command=estimate)
+window_button.place(x=160,y=120)
+
+#主界面循环
+window.mainloop()

@@ -1,0 +1,5 @@
+import pygame
+file=r''
+pygame.mixer.init()
+track = pygame.mixer.music.loac
+pygame.mixer.music.play()
